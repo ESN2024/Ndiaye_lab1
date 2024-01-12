@@ -1,12 +1,12 @@
-# system info lab1 on 2024.01.12.14:50:29
+# system info lab1 on 2024.01.12.16:58:57
 system_info:
 name,value
 DEVICE,10M50DAF484C6GES
 DEVICE_FAMILY,MAX 10
-GENERATION_ID,1705067413
+GENERATION_ID,1705075118
 #
 #
-# Files generated for lab1 on 2024.01.12.14:50:29
+# Files generated for lab1 on 2024.01.12.16:58:57
 files:
 filepath,kind,attributes,module,is_top
 simulation/lab1.vhd,VHDL,,lab1,true

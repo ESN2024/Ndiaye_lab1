@@ -1,9 +1,9 @@
 	component lab1 is
 		port (
-			clk_clk       : in  std_logic                    := 'X'; -- clk
-			led_export    : out std_logic_vector(7 downto 0);        -- export
-			reset_reset_n : in  std_logic                    := 'X'; -- reset_n
-			bouton_export : in  std_logic                    := 'X'  -- export
+			clk_clk       : in  std_logic                    := 'X';             -- clk
+			led_export    : out std_logic_vector(7 downto 0);                    -- export
+			reset_reset_n : in  std_logic                    := 'X';             -- reset_n
+			bouton_export : in  std_logic_vector(7 downto 0) := (others => 'X')  -- export
 		);
 	end component lab1;
 

@@ -8,10 +8,10 @@ use IEEE.numeric_std.all;
 
 entity lab1 is
 	port (
-		bouton_export : in  std_logic                    := '0'; -- bouton.export
-		clk_clk       : in  std_logic                    := '0'; --    clk.clk
-		led_export    : out std_logic_vector(7 downto 0);        --    led.export
-		reset_reset_n : in  std_logic                    := '0'  --  reset.reset_n
+		bouton_export : in  std_logic_vector(7 downto 0) := (others => '0'); -- bouton.export
+		clk_clk       : in  std_logic                    := '0';             --    clk.clk
+		led_export    : out std_logic_vector(7 downto 0);                    --    led.export
+		reset_reset_n : in  std_logic                    := '0'              --  reset.reset_n
 	);
 end entity lab1;
 
@@ -100,7 +100,7 @@ architecture rtl of lab1 is
 			writedata  : in  std_logic_vector(31 downto 0) := (others => 'X'); -- writedata
 			chipselect : in  std_logic                     := 'X';             -- chipselect
 			readdata   : out std_logic_vector(31 downto 0);                    -- readdata
-			in_port    : in  std_logic                     := 'X';             -- export
+			in_port    : in  std_logic_vector(7 downto 0)  := (others => 'X'); -- export
 			irq        : out std_logic                                         -- irq
 		);
 	end component lab1_pio_1;

@@ -142,7 +142,7 @@ ACDS_VERSION := 18.1
 ELF := lab1_elf.elf
 
 # Paths to C, C++, and assembly source files.
-C_SRCS += ../chenillard.c
+C_SRCS += ../chenillard_fast.c
 CXX_SRCS :=
 ASM_SRCS :=
 

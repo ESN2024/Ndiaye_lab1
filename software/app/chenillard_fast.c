@@ -7,21 +7,29 @@
 #include <stdio.h>
 #include <unistd.h>
 
-static void irqhandler(void * context, alt_u32 id)
+int vitesse[4]={1000000,500000,250000,100000};
+int i=0;
+void chenillard()
 {
-	
-    IOWR_ALTERA_AVALON_PIO_EDGE_CAP(PIO_1_BASE, 0x0);
-	alt_printf("salut\n\r");
 	int data=0x01;
 
-	for(int i=1;i<=8;i++)
+	for(int j=1;j<=8;j++)
 	{
 		data= data << 1;
 		IOWR_ALTERA_AVALON_PIO_DATA(PIO_0_BASE,data);//data
-		usleep(500000);		
+		usleep(vitesse[i]);		
 		
 	}
-	data=0x01;	
+	data=0x01;
+}
+static void irqhandler(void * context, alt_u32 id)
+{
+	
+    IOWR_ALTERA_AVALON_PIO_EDGE_CAP(PIO_1_BASE, 0x01);
+	i++;
+	i=i%4 ;
+	alt_printf("%d\n\r",i);
+		
 }
 
 int main(void)
@@ -33,10 +41,7 @@ int main(void)
 	alt_irq_register( PIO_1_IRQ, NULL, (void*)irqhandler );
 	while(1)
 	{
-		IOWR_ALTERA_AVALON_PIO_DATA(PIO_0_BASE,0x01);//data
-		usleep(500000);	
-		IOWR_ALTERA_AVALON_PIO_DATA(PIO_0_BASE,0x00);//data
-		usleep(500000);	
+		chenillard();	
 	}
 	return 0;
 	
