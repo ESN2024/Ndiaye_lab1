@@ -7,42 +7,69 @@
 #include <stdio.h>
 #include <unistd.h>
 
-int vitesse[4]={1000000,500000,250000,100000};
-int i=0;
+int time=20000;
+int data=0x01;
+
+static void irqhandler_btn(void * context, alt_u32 id);
+static void irqhandler_switch(void * context, alt_u32 id);
+
+void chenillard();
+
+
 void chenillard()
 {
-	int data=0x01;
 
-	for(int j=1;j<=8;j++)
-	{
+	while (data != 0x80)
+    {
 		data= data << 1;
 		IOWR_ALTERA_AVALON_PIO_DATA(PIO_0_BASE,data);//data
-		usleep(vitesse[i]);		
+		usleep(time);		
 		
 	}
-	data=0x01;
-}
-static void irqhandler(void * context, alt_u32 id)
-{
-	
-    IOWR_ALTERA_AVALON_PIO_EDGE_CAP(PIO_1_BASE, 0x01);
-	i++;
-	i=i%4 ;
-	alt_printf("%d\n\r",i);
+
+	while (data != 0x01)
+    {
+		data= data >> 1;
+		IOWR_ALTERA_AVALON_PIO_DATA(PIO_0_BASE,data);//data
+		usleep(time);		
 		
+	}
+}
+static void irqhandler_btn(void * context, alt_u32 id)
+{
+	time = 0;
+    IOWR_ALTERA_AVALON_PIO_EDGE_CAP(PIO_2_BASE, 0x01);		
+}
+
+static void irqhandler_switch(void * context, alt_u32 id)
+{
+	int SW = 0;
+
+	SW = IORD_ALTERA_AVALON_PIO_DATA(PIO_1_BASE);
+
+    time = SW * 20000;
+
+    IOWR_ALTERA_AVALON_PIO_EDGE_CAP(PIO_1_BASE, 0x0F);		
 }
 
 int main(void)
 {
 	// Configurer le bouton pour générer des interruptions
-    IOWR_ALTERA_AVALON_PIO_IRQ_MASK(PIO_1_BASE, 0x1);
-    IOWR_ALTERA_AVALON_PIO_EDGE_CAP(PIO_1_BASE, 0x1);
+    IOWR_ALTERA_AVALON_PIO_IRQ_MASK(PIO_2_BASE, 0x1);
+    IOWR_ALTERA_AVALON_PIO_EDGE_CAP(PIO_2_BASE, 0x1);
+
+	// Configurer les switch pour générer des interruptions
+    IOWR_ALTERA_AVALON_PIO_IRQ_MASK(PIO_1_BASE, 0x0F);
+    IOWR_ALTERA_AVALON_PIO_EDGE_CAP(PIO_1_BASE, 0x0F);
 	
-	alt_irq_register( PIO_1_IRQ, NULL, (void*)irqhandler );
+	alt_irq_register( PIO_2_IRQ, NULL, (void*)irqhandler_btn );
+	alt_irq_register( PIO_1_IRQ, NULL, (void*)irqhandler_switch );
+
 	while(1)
 	{
-		chenillard();	
+		chenillard();
 	}
+
 	return 0;
 	
 }
