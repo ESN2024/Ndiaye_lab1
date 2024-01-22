@@ -1,5 +1,4 @@
-# Objectif
-Implémentation d'un chenillard sur la carte DE-10 Lite en utilisant Quartus et un système NIOS II.
+# Ndiaye Lab1
 
 # I. Introduction :
 L'objectif de ce rapport est de présenter le travail réalisé au cours des travaux pratiques de l'UE Conception Conjointe, axés sur l'approfondissement et la mise en pratique des connaissances à travers la création d'une architecture NIOS. Cette dernière a été utilisée pour coder un chenillard en langage C. Le cahier des charges était simple, consistant à utiliser la plate-forme DE-10 équipée d'un FPGA Max-10 pour développer un chenillard.
@@ -8,7 +7,6 @@ L'objectif de ce rapport est de présenter le travail réalisé au cours des tra
 À partir du cahier des charges, nous avons déterminé l'architecture à mettre en place sur la plate-forme designer. Le schéma ci-dessous présente notre choix :
 
 ![image](https://github.com/ESN2024/Ndiaye_lab1/assets/153745637/98a01b16-ed75-43b0-ab58-5191b9e7ffd8)
-
 
 
 Création d'un système NIOS II basique Platform Designer image
